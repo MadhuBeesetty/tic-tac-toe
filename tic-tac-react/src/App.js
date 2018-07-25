@@ -6,6 +6,8 @@ class App extends Component {
   constructor(){
     super();
     this.state={
+      player1: '',
+      player2: '',
       turn: "X",
       board: Array(9).fill('')
     }
@@ -24,9 +26,29 @@ class App extends Component {
     console.log(this.state.board);
   }
 
+  AddPlayer1 = (e) => {
+    this.setState({player1:e.target.value})
+  }
+
+  AddPlayer2 = (e) => {
+    this.setState({player2:e.target.value})
+  }
+
+  click = (Player1,Player2) => {
+    return (
+      <div>
+        <h1>hi</h1>
+        <p> player 1 is "X" : {Player1} </p>
+        <p> player 2 is "O" : {Player2} </p>
+      </div>
+    )
+  }
+
   render() {
+    console.log(this.state);
     return (
       <div id="game">
+        <Player AddPlayer1={this.AddPlayer1} AddPlayer2={this.AddPlayer2} click={this.click} Player1={this.state.player1} Player2={this.state.player2} />
         <div id="head">
           <h1>tic-tac-toe-using react</h1>
         </div>
@@ -46,4 +68,16 @@ class App extends Component {
   }
 }
 
+const Player = ({ AddPlayer1, AddPlayer2, click, Player1, player2 }) => {
+
+  return(
+    <div>
+      Player1 Name :<input type="text" placeholder="enter name" onChange={AddPlayer1} />
+      Player2 Name :<input type="text" placeholder="enter name" onChange={AddPlayer2} />
+      <input type="submit" onClick={()=>click(Player1,Player2)} />
+    </div>
+  )
+}
+
 export default App;
+
