@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Player from './components/Players';
+
 class App extends Component {
 
   constructor(){
@@ -9,12 +11,42 @@ class App extends Component {
       player1: '',
       player2: '',
       turn: "X",
-      board: Array(9).fill('')
-    }
+      board: Array(9).fill(''),
+      winner: ''
+    };
+
+    this.changePlayer = this.changePlayer.bind(this);
+    this.fun = this.fun.bind(this);
   }
+
+  changePlayer(e) {
+    console.log(e.target.name);
+    this.setState({[e.target.name]: e.target.value})
+  }
+
+  fun() {
+    if(this.state.winner !== ''){
+      var name = '';
+      var name2 ='';
+      if(this.state.winner === 'X'){
+        name=this.state.player1;
+        name2=this.state.player2;
+      }else{
+        name=this.state.player2;
+        name2=this.state.player1;
+      }
+      return(
+        <div>
+        <p className="winner">the winner is {name}</p>
+        <p className="winner">{name2} get a life </p>
+        </div>
+      )
+    }
+  };
 
   clicked(event){
 
+    if(this.state.winner === ''){
     if(this.state.board[event.target.dataset.square] === ''){    
       this.state.board[event.target.dataset.square] = this.state.turn; 
       event.target.innerText = this.state.turn;
@@ -22,33 +54,24 @@ class App extends Component {
         turn: this.state.turn === 'X' ? 'O' : 'X',
         board: this.state.board
       })
+      var arr = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      for(var i = 0; i< arr.length; i++){
+        if(this.state.board[arr[i][0]] === this.state.board[arr[i][1]] && this.state.board[arr[i][1]] === this.state.board[arr[i][2]]){
+          this.setState({
+            winner: this.state.board[arr[i][0]]
+          })
+        }
+      }
     }
     console.log(this.state.board);
   }
-
-  AddPlayer1 = (e) => {
-    this.setState({player1:e.target.value})
-  }
-
-  AddPlayer2 = (e) => {
-    this.setState({player2:e.target.value})
-  }
-
-  click = (Player1,Player2) => {
-    return (
-      <div>
-        <h1>hi</h1>
-        <p> player 1 is "X" : {Player1} </p>
-        <p> player 2 is "O" : {Player2} </p>
-      </div>
-    )
-  }
+}
 
   render() {
     console.log(this.state);
     return (
       <div id="game">
-        <Player AddPlayer1={this.AddPlayer1} AddPlayer2={this.AddPlayer2} click={this.click} Player1={this.state.player1} Player2={this.state.player2} />
+      <Player Player1={this.state.player1} Player2={this.state.player2} changePlayer={this.changePlayer} />
         <div id="head">
           <h1>tic-tac-toe-using react</h1>
         </div>
@@ -63,20 +86,12 @@ class App extends Component {
           <div className="square" data-square="7"></div>
           <div className="square" data-square="8"></div>
         </div>
+        <div>
+        {this.fun()}
+        </div>
       </div>
     );
   }
-}
-
-const Player = ({ AddPlayer1, AddPlayer2, click, Player1, player2 }) => {
-
-  return(
-    <div>
-      Player1 Name :<input type="text" placeholder="enter name" onChange={AddPlayer1} />
-      Player2 Name :<input type="text" placeholder="enter name" onChange={AddPlayer2} />
-      <input type="submit" onClick={()=>click(Player1,Player2)} />
-    </div>
-  )
 }
 
 export default App;

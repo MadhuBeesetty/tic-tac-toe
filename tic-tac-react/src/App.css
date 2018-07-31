@@ -29,3 +29,8 @@
   text-align: center;
   padding-top: 40px;
 }
+
+.winner {
+  font-style: italic;
+  font-size: 30px;
+}
