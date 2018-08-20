@@ -28,8 +28,9 @@ return bindActionCreators({addName},dispatch)
 
 function mapStateToProps(state) {
   return{
-      users: state.users
-  };
+      users: state.users,
+      squares: state.squares
+  }
   }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Names);
