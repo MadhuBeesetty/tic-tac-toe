@@ -4,6 +4,14 @@ const addName=(name1) => {
     payload: name1
   };
 },
+
+addName2=(name2) => {
+  return {
+    type: "ADD_NAME2",
+    payload: name2
+  };
+},
+
 squareClick = (squareId) => {
   return {
     type: "SQUARE_CLICK",
@@ -11,4 +19,4 @@ squareClick = (squareId) => {
   };
 };
 
-export default {addName, squareClick};
+export default {addName, addName2, squareClick};
