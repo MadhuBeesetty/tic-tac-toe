@@ -1,0 +1,11 @@
+.square {
+  display: inline-block;
+  height: 50px;
+  width: 46px;
+  border: 2px solid black;
+};
+
+.bigSquare {
+  width: 150px;
+  background-color: "red";
+};
