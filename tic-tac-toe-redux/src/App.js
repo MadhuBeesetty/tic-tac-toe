@@ -7,18 +7,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <p>
-          tic-tac-toe-react-redux
-        </p>
+        <p>tic-tac-toe-react-redux</p>
         <div>
-        <Names />
+          <Names />
         </div>
         <div>
           <Square />
-          </div>
+        </div>
       </div>
     );
   }
-};
+}
 
 export default App;
